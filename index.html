@@ -3,147 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mirror Hassan | Premium Library</title>
+    <title>Mirror Hassan Official | Elite Library</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root { --gold: #d4af37; --bg: #030303; --card: #0e0e0e; --accent: #ff3131; }
+        :root { --gold: #d4af37; --dark: #0a0a0a; --accent: #ff3131; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg); color: white; }
+        body { background-color: #000; color: white; line-height: 1.6; }
 
-        /* Premium Nav */
-        nav { background: #000; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Cinzel'; color: var(--gold); font-size: 26px; font-weight: 900; }
+        /* Header */
+        header { background: #111; padding: 25px 20px; text-align: center; border-bottom: 2px solid var(--gold); }
+        .logo { font-family: 'Montserrat'; font-size: 24px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
         
-        /* Hero Section */
-        .hero { padding: 100px 20px; text-align: center; background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('https://i.postimg.cc/x1h3m1DJ/1778071595818.png'); background-size: cover; border-bottom: 3px solid var(--gold); }
-        .founder-badge { border: 1px solid var(--gold); color: var(--gold); padding: 7px 25px; border-radius: 50px; font-size: 12px; text-transform: uppercase; margin-bottom: 25px; display: inline-block; background: rgba(212, 175, 55, 0.1); }
-        .hero h1 { font-family: 'Montserrat'; font-size: clamp(30px, 8vw, 50px); margin-bottom: 25px; text-transform: uppercase; color: #fff; }
-        .hero h1 span { color: var(--gold); text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-
-        /* Professional English Bio */
-        .bio-box { max-width: 850px; margin: auto; background: rgba(255,255,255,0.03); padding: 40px; border-radius: 30px; border-left: 5px solid var(--gold); text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-        .bio-box p { font-size: 17px; line-height: 1.9; color: #d1d1d1; margin-bottom: 15px; font-style: italic; }
-        .sig { font-family: 'Cinzel'; color: var(--gold); font-size: 24px; margin-top: 25px; display: block; }
+        /* Mirror Hassan Personality Panel */
+        .hassan-profile { padding: 50px 20px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://i.postimg.cc/x1h3m1DJ/1778071595818.png'); background-size: cover; text-align: center; border-bottom: 1px solid #222; }
+        .bio-text { max-width: 700px; margin: 20px auto; background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; border-left: 4px solid var(--gold); text-align: left; }
+        .bio-text h2 { color: var(--gold); font-size: 18px; margin-bottom: 10px; }
+        .bio-text p { font-size: 15px; color: #ddd; font-style: italic; }
 
         /* Novel Grid */
-        .title-bar { text-align: center; margin: 60px 0 40px; font-family: 'Cinzel'; font-size: 32px; color: var(--gold); letter-spacing: 3px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 30px; padding: 0 5% 100px; }
-        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #222; transition: 0.5s; }
-        .card:hover { transform: translateY(-12px); border-color: var(--gold); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2); }
-        .card img { width: 100%; height: 280px; object-fit: cover; filter: brightness(0.9); }
-        .card-body { padding: 20px; text-align: center; }
-        .card-body h4 { font-size: 15px; margin-bottom: 18px; color: #fff; height: 45px; overflow: hidden; }
-        .btn-main { background: linear-gradient(45deg, #d4af37, #f2d06b); color: #000; border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 12px; }
+        .container { padding: 30px 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+        .card { background: #111; border-radius: 15px; overflow: hidden; border: 1px solid #222; transition: 0.3s; }
+        .card img { width: 100%; height: 240px; object-fit: cover; }
+        .card-content { padding: 15px; text-align: center; }
+        .card-content h3 { font-size: 14px; margin-bottom: 15px; height: 40px; overflow: hidden; }
 
-        /* Lock Modal */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(10px); }
-        .modal-content { background: #0a0a0a; padding: 60px 40px; border: 2px solid var(--gold); border-radius: 40px; text-align: center; width: 90%; max-width: 420px; }
-        #timer-val { font-size: 80px; font-weight: 900; color: var(--gold); display: block; margin: 30px 0; font-family: 'Montserrat'; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
-        .go-btn { background: var(--gold); color: black; padding: 18px 45px; border-radius: 15px; font-weight: 900; text-decoration: none; display: none; text-transform: uppercase; box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3); }
+        /* Real Working Button */
+        .download-btn { 
+            background: var(--gold); color: black; border: none; padding: 12px; 
+            width: 100%; border-radius: 8px; font-weight: 800; cursor: pointer;
+            display: block; text-decoration: none; text-transform: uppercase; font-size: 12px;
+        }
 
-        footer { background: #000; padding: 60px; text-align: center; border-top: 1px solid #1a1a1a; color: #444; font-size: 13px; }
-        .wa-float { display: inline-block; margin-top: 35px; background: #25d366; color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; box-shadow: 0 10px 20px rgba(37,211,102,0.3); }
+        /* Timer Modal */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 10000; }
+        .modal-box { background: #111; padding: 40px; border-radius: 20px; border: 2px solid var(--gold); text-align: center; width: 85%; max-width: 350px; }
+        #timer-num { font-size: 60px; font-weight: 900; color: var(--gold); margin: 20px 0; display: block; }
+        .final-link { background: #25d366; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 700; display: none; }
+
+        footer { text-align: center; padding: 40px; color: #555; font-size: 12px; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">MIRROR <span>HASSAN</span></div>
-        <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" style="color:#25d366; font-size: 30px;"><i class="fab fa-whatsapp"></i></a>
-    </nav>
+    <header>
+        <div class="logo">Mirror <span>Hassan</span> Official</div>
+    </header>
 
-    <div class="hero">
-        <div class="founder-badge">Chief Executive Curator</div>
-        <h1>Welcome To <span>Mirror Hassan</span> Official</h1>
-        <div class="bio-box">
-            <p>"I am <b>Mirror Hassan</b>, the architect and visionary behind this digital sanctuary. My mission is to provide an elite, secure, and world-class platform for Urdu novel lovers. Every book listed here is a handpicked masterpiece, curated with absolute precision to ensure you experience the best of literature."</p>
-            <p>"Join my official community and be part of a legacy where quality meets passion. This is my world, and you are cordially invited."</p>
-            <span class="sig">- Mirror Hassan</span>
+    <section class="hassan-profile">
+        <div class="bio-text">
+            <h2>The Visionary Founder</h2>
+            <p>"I am Mirror Hassan, the curator of this premium digital archive. My mission is to bring you the world's most captivating novels in one secure place. Quality, trust, and elegance define my legacy."</p>
+            <p style="margin-top:10px; font-weight:bold; color:var(--gold);">— Mirror Hassan Official</p>
         </div>
-        <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" class="wa-float"><i class="fab fa-whatsapp"></i> JOIN MY ELITE CHANNEL</a>
-    </div>
+        <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" style="color:#25d366; text-decoration:none; font-weight:700;"><i class="fab fa-whatsapp"></i> JOIN MY CHANNEL</a>
+    </section>
 
-    <h2 class="title-bar">THE NOVELISTIC ARCHIVE</h2>
-    <div class="grid" id="novel-container">
-        </div>
-
-    <div class="modal" id="timer-modal">
-        <div class="modal-content">
-            <i class="fas fa-shield-alt" style="font-size: 45px; color: var(--gold); margin-bottom: 20px;"></i>
-            <h2 style="font-family:Cinzel; color:var(--gold);">Generating Secure Access</h2>
-            <span id="timer-val">15</span>
-            <a href="#" id="dl-link" class="go-btn">📥 DOWNLOAD NOW</a>
+    <div class="container">
+        <h2 style="margin-bottom:20px; font-size:20px; color:var(--gold); border-bottom: 1px solid #222; padding-bottom:10px;">Novel Library</h2>
+        <div class="grid" id="novel-grid">
+            <p style="text-align:center; grid-column: 1/-1;">Connecting to Hassan's Server...</p>
         </div>
     </div>
 
-    <footer>MIRROR HASSAN OFFICIAL &copy; 2026 | THE ULTIMATE NOVEL DESTINATION</footer>
+    <div class="modal" id="dlModal">
+        <div class="modal-box">
+            <h3 style="color:var(--gold);">Securing Access</h3>
+            <span id="timer-num">15</span>
+            <a href="#" id="go-btn" class="final-link" target="_blank">DOWNLOAD NOW</a>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 Mirror Hassan Official | Premium Network</footer>
 
     <script>
         const SHEET_ID = '1QAa2IooWSDSCDBKN6CmhTIYVRnKtSfFt54pm70QWyIQ';
-        const G_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
-        async function initLibrary() {
+        async function loadNovels() {
             try {
-                const response = await fetch(G_URL);
+                const response = await fetch(SHEET_URL);
                 const text = await response.text();
-                // Fix: More robust JSON cleaning
-                const jsonStr = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
-                const data = JSON.parse(jsonStr);
-                const rows = data.table.rows;
-                const grid = document.getElementById('novel-container');
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+                const grid = document.getElementById('novel-grid');
                 grid.innerHTML = '';
 
                 rows.forEach((row, i) => {
-                    if(i === 0) return; // Skip Header
-                    const n = row.c[0] ? row.c[0].v : "Elite Novel";
+                    if(i === 0) return;
+                    const name = row.c[0] ? row.c[0].v : "Urdu Novel";
                     const img = row.c[1] ? row.c[1].v : "https://via.placeholder.com/300";
                     const link = row.c[2] ? row.c[2].v : "#";
 
                     grid.innerHTML += `
                         <div class="card">
                             <img src="${img}" alt="Cover">
-                            <div class="card-body">
-                                <h4>${n}</h4>
-                                <button class="btn-main" onclick="startSecureTimer('${link}')">GET ACCESS</button>
+                            <div class="card-content">
+                                <h3>${name}</h3>
+                                <button class="download-btn" onclick="openTimer('${link}')">Read Now</button>
                             </div>
                         </div>
                     `;
                 });
             } catch (err) {
-                document.getElementById('novel-container').innerHTML = "Database Connection Error. Ensure Sheet Sharing is set to Public!";
+                document.getElementById('novel-grid').innerHTML = "Database Connection Error!";
             }
         }
 
-        function startSecureTimer(finalUrl) {
-            const modal = document.getElementById('timer-modal');
-            const timerDisplay = document.getElementById('timer-val');
-            const actionBtn = document.getElementById('dl-link');
+        function openTimer(url) {
+            const modal = document.getElementById('dlModal');
+            const timerText = document.getElementById('timer-num');
+            const btn = document.getElementById('go-btn');
             
             modal.style.display = 'flex';
-            actionBtn.style.display = 'none';
-            timerDisplay.style.display = 'block';
-            timerDisplay.innerText = "15";
+            btn.href = url;
+            btn.style.display = 'none';
+            timerText.style.display = 'block';
 
-            let time = 15;
-            const timerLogic = setInterval(() => {
-                time--;
-                timerDisplay.innerText = time;
-                if(time <= 0) {
-                    clearInterval(timerLogic);
-                    timerDisplay.style.display = 'none';
-                    actionBtn.style.display = 'inline-block';
-                    // Important Fix: Using direct assignment
-                    actionBtn.onclick = function() {
-                        window.location.href = finalUrl;
-                    };
+            let timeLeft = 15;
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerText.innerText = timeLeft;
+                if(timeLeft <= 0) {
+                    clearInterval(timer);
+                    timerText.style.display = 'none';
+                    btn.style.display = 'inline-block';
                 }
             }, 1000);
         }
 
-        window.onload = initLibrary;
+        window.onload = loadNovels;
     </script>
 </body>
 </html>
