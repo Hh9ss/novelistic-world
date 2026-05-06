@@ -13,31 +13,35 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg); color: var(--white); }
 
-        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(5, 7, 10, 0.98); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,215,0,0.2); }
-        .logo { font-family: 'Montserrat'; font-size: 20px; text-decoration: none; color: white; text-transform: uppercase; }
+        .navbar { position: sticky; top: 0; z-index: 1000; background: #000; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); }
+        .logo { font-family: 'Montserrat'; font-size: 18px; text-decoration: none; color: white; text-transform: uppercase; letter-spacing: 1px; }
         .logo span { color: var(--gold); }
 
-        .owner-section { padding: 30px 20px; text-align: center; background: #000; border-bottom: 2px solid var(--gold); }
-        .bio-box { border-left: 4px solid var(--gold); padding: 15px; background: #0a0a0a; max-width: 500px; margin: auto; text-align: left; }
+        .owner-header { padding: 30px 20px; text-align: center; background: #080808; margin-bottom: 20px; }
+        .bio-box { border-left: 3px solid var(--gold); padding: 12px; background: #000; max-width: 500px; margin: auto; text-align: left; }
 
-        .novel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; padding-bottom: 100px; }
-        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); position: relative; }
-        .card img { width: 100%; height: 210px; object-fit: cover; }
-        .info { padding: 12px; text-align: center; }
-        .info h4 { font-size: 12px; margin-bottom: 10px; height: 35px; overflow: hidden; color: #fff; }
+        .novel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; padding-bottom: 80px; }
+        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+        .card img { width: 100%; height: 190px; object-fit: cover; }
+        .info { padding: 10px; text-align: center; }
+        .info h4 { font-size: 11px; margin-bottom: 10px; height: 32px; overflow: hidden; color: #eee; }
 
-        /* The New Direct Button */
-        .action-btn { 
-            background: var(--gold); color: #000; border: none; padding: 12px; 
-            width: 100%; border-radius: 8px; font-weight: 800; cursor: pointer;
-            text-transform: uppercase; font-size: 11px; transition: 0.3s;
-            display: block; text-decoration: none;
+        /* Direct Reliable Link Button */
+        .dl-button { 
+            display: block;
+            background: var(--gold); 
+            color: #000; 
+            padding: 10px; 
+            border-radius: 6px; 
+            font-weight: 800; 
+            text-decoration: none;
+            text-transform: uppercase; 
+            font-size: 10px;
+            transition: 0.2s;
         }
-        .action-btn.waiting { background: #333; color: #gold; cursor: not-allowed; }
-        .action-btn.ready { background: #25d366; color: white; animation: pulse 1s infinite; }
+        .dl-button:active { transform: scale(0.95); background: #e6b800; }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
-        footer { text-align: center; padding: 30px; font-size: 11px; opacity: 0.4; }
+        footer { text-align: center; padding: 30px; font-size: 10px; opacity: 0.3; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
@@ -47,76 +51,50 @@
         <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" style="color:#25d366;"><i class="fab fa-whatsapp" style="font-size:24px;"></i></a>
     </nav>
 
-    <div class="owner-section">
+    <div class="owner-header">
         <div class="bio-box">
-            <h3 style="color:var(--gold); font-size:15px;">Mirror Hassan Official</h3>
-            <p style="font-size:11px; color:#999; margin-top:5px;">Providing secure and elite access to Urdu literature. Quality is my priority.</p>
+            <h3 style="color:var(--gold); font-size:14px;">Mirror Hassan Official</h3>
+            <p style="font-size:10px; color:#888; margin-top:4px;">Founder of Novelistic World. Dedicated to bringing you the best Urdu literature safely.</p>
         </div>
     </div>
 
     <main class="novel-grid" id="mainGrid">
-        <p style="grid-column: span 2; text-align:center; padding:50px;">Loading Hassan's Library...</p>
-    </main>
+        </main>
 
-    <footer>Novelistic World | Created by Mirror Hassan Official © 2026</footer>
+    <footer>Novelistic World | Managed by Mirror Hassan Official</footer>
 
     <script>
         const SHEET_ID = '1QAa2IooWSDSCDBKN6CmhTIYVRnKtSfFt54pm70QWyIQ';
-        const URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+        const DATA_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
         async function loadNovels() {
             try {
-                const r = await fetch(URL);
-                const t = await r.text();
-                const d = JSON.parse(t.substring(47).slice(0, -2));
-                const rows = d.table.rows;
+                const response = await fetch(DATA_URL);
+                const text = await response.text();
+                const json = JSON.parse(text.substring(47).slice(0, -2));
+                const rows = json.table.rows;
                 const grid = document.getElementById('mainGrid');
                 grid.innerHTML = "";
 
                 rows.forEach((row, i) => {
-                    if(i === 0) return;
+                    if(i === 0) return; // Skip Header
                     const name = row.c[0] ? row.c[0].v : "Novel";
-                    const img = row.c[1] ? row.c[1].v : "https://via.placeholder.com/200x300";
+                    const image = row.c[1] ? row.c[1].v : "https://via.placeholder.com/200x300?text=No+Image";
                     const link = row.c[2] ? row.c[2].v : "#";
-
-                    // Unique ID for each button
-                    const btnId = `btn-${i}`;
 
                     grid.innerHTML += `
                         <div class="card">
-                            <img src="${img}" onerror="this.src='https://via.placeholder.com/200x300?text=Novel'">
+                            <img src="${image}">
                             <div class="info">
                                 <h4>${name}</h4>
-                                <button id="${btnId}" class="action-btn" onclick="startProcess('${btnId}', '${link}')">Download PDF</button>
+                                <a href="${link}" class="dl-button">Download Now</a>
                             </div>
                         </div>
                     `;
                 });
             } catch (err) {
-                console.error(err);
+                document.getElementById('mainGrid').innerHTML = "<p style='grid-column:span 2; text-align:center;'>Database Error!</p>";
             }
-        }
-
-        function startProcess(id, url) {
-            const btn = document.getElementById(id);
-            if(btn.classList.contains('waiting') || btn.classList.contains('ready')) return;
-
-            let timeLeft = 10;
-            btn.classList.add('waiting');
-            
-            const timer = setInterval(() => {
-                timeLeft--;
-                btn.innerText = `Wait ${timeLeft}s...`;
-                
-                if(timeLeft <= 0) {
-                    clearInterval(timer);
-                    btn.innerText = "Click to Download";
-                    btn.classList.remove('waiting');
-                    btn.classList.add('ready');
-                    // Change click to open link
-                    btn.onclick = () => { window.location.href = url; };
-                }
-            }, 1000);
         }
 
         window.onload = loadNovels;
