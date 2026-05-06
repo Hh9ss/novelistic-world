@@ -9,118 +9,129 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root { --primary: #05070a; --accent: #ffcc00; --card-bg: #11141d; --text: #ffffff; }
+        :root { --primary: #05070a; --accent: #ffcc00; --card-bg: #11141d; --text: #ffffff; --whatsapp: #25d366; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--primary); color: var(--text); }
+        body { background-color: var(--primary); color: var(--text); overflow-x: hidden; }
 
-        /* Header & Search Area */
-        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 15px 20px; border-bottom: 2px solid var(--accent); }
-        .logo { font-family: 'Montserrat'; font-weight: 900; font-size: 22px; color: #fff; text-decoration: none; text-transform: uppercase; text-align: center; display: block; margin-bottom: 15px; }
+        /* --- ENTRY POPUP --- */
+        #entryModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: #111; border: 2px solid var(--accent); padding: 30px; border-radius: 25px; text-align: center; max-width: 400px; width: 100%; box-shadow: 0 0 30px rgba(255,204,0,0.2); }
+        .modal-content i { font-size: 50px; color: var(--whatsapp); margin-bottom: 20px; }
+        .modal-content h2 { font-family: 'Montserrat'; color: #fff; margin-bottom: 10px; font-size: 20px; }
+        .modal-content p { color: #aaa; font-size: 13px; margin-bottom: 25px; }
+        .join-now-btn { display: block; background: var(--whatsapp); color: white; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 800; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; }
+        .close-modal { color: var(--accent); font-size: 12px; cursor: pointer; text-decoration: underline; background: none; border: none; font-weight: 600; }
+
+        /* --- NAVBAR & UI --- */
+        .navbar { position: sticky; top: 0; z-index: 1000; background: #000; padding: 15px 20px; border-bottom: 2px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Montserrat'; font-weight: 900; font-size: 18px; color: #fff; text-decoration: none; text-transform: uppercase; }
         .logo span { color: var(--accent); }
+        
+        .floating-wa { position: fixed; bottom: 25px; right: 25px; background: var(--whatsapp); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 5000; text-decoration: none; animation: bounce 2s infinite; }
 
-        .search-container { position: relative; max-width: 500px; margin: auto; }
-        .search-bar { width: 100%; padding: 12px 45px 12px 20px; border-radius: 30px; border: 1px solid rgba(255,204,0,0.3); background: rgba(255,255,255,0.05); color: #fff; outline: none; font-size: 14px; transition: 0.3s; }
-        .search-bar:focus { border-color: var(--accent); background: rgba(255,255,255,0.1); box-shadow: 0 0 15px rgba(255,204,0,0.2); }
-        .search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--accent); }
+        .search-area { padding: 15px 20px; background: #080808; }
+        .search-bar { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid rgba(255,204,0,0.2); background: #111; color: #fff; outline: none; }
 
-        /* Owner Profile Section */
-        .owner-card { margin: 25px 20px; padding: 25px; background: linear-gradient(145deg, #161a25, #0a0c12); border-radius: 20px; border: 1px solid rgba(255,204,0,0.1); position: relative; overflow: hidden; }
-        .owner-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,204,0,0.05) 0%, transparent 70%); pointer-events: none; }
-        .owner-title { color: var(--accent); font-family: 'Montserrat'; font-size: 18px; margin-bottom: 10px; text-transform: uppercase; }
-        .owner-bio { font-size: 13px; line-height: 1.6; color: #bbb; font-style: italic; }
+        .owner-card { margin: 20px; padding: 25px; background: linear-gradient(145deg, #161a25, #0a0c12); border-radius: 20px; border-left: 5px solid var(--accent); }
+        .owner-title { color: var(--accent); font-family: 'Montserrat'; font-size: 17px; margin-bottom: 10px; }
+        .owner-bio { font-size: 12px; line-height: 1.6; color: #bbb; font-style: italic; }
 
-        /* Novel Grid */
-        .grid-title { padding: 0 20px; font-family: 'Montserrat'; font-size: 18px; color: var(--accent); text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .novel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px 100px; }
-        .card { background: var(--card-bg); border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s; }
-        .card:active { transform: scale(0.97); }
-        .card img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #222; }
+        .novel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px 20px 100px; }
+        .card { background: var(--card-bg); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+        .card img { width: 100%; height: 210px; object-fit: cover; }
         .card-info { padding: 12px; text-align: center; }
-        .card-info h4 { font-size: 13px; height: 38px; overflow: hidden; margin-bottom: 12px; font-weight: 600; color: #eee; }
+        .card-info h4 { font-size: 12px; height: 35px; overflow: hidden; margin-bottom: 10px; color: #fff; }
+        .dl-btn { display: block; background: var(--accent); color: #000; text-decoration: none; padding: 10px; border-radius: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
 
-        /* Enhanced Button */
-        .dl-btn { display: block; background: var(--accent); color: #000; text-decoration: none; padding: 12px; border-radius: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.3s; }
-        .dl-btn:hover { background: #fff; }
-
-        footer { text-align: center; padding: 40px 20px; font-size: 11px; color: #444; border-top: 1px solid #111; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        footer { text-align: center; padding: 40px; font-size: 10px; color: #444; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
 
+    <div id="entryModal">
+        <div class="modal-content">
+            <i class="fab fa-whatsapp"></i>
+            <h2>Join Our Community</h2>
+            <p>To access <b>Novelistic World</b> and get the latest updates, please follow our WhatsApp channel first.</p>
+            <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" class="join-now-btn" target="_blank" onclick="closePopup()">Join & Follow Now</a>
+            <button class="close-modal" onclick="closePopup()">I Have Already Joined</button>
+        </div>
+    </div>
+
+    <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" class="floating-wa" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <nav class="navbar">
         <a href="#" class="logo">Novelistic <span>World</span></a>
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-bar" placeholder="Search your favorite novel..." onkeyup="filterNovels()">
-            <i class="fas fa-search search-icon"></i>
-        </div>
     </nav>
 
+    <div class="search-area">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Find your novel..." onkeyup="filterNovels()">
+    </div>
+
     <div class="owner-card">
-        <h3 class="owner-title"><i class="fas fa-crown"></i> Mirror Hassan Official</h3>
+        <h3 class="owner-title">Mirror Hassan Official</h3>
         <p class="owner-bio">
-            "Welcome to my elite digital library. As the founder of <b>Novelistic World</b>, my mission is to preserve the elegance of Urdu literature and provide a seamless, high-quality reading sanctuary for book enthusiasts globally. Quality, trust, and your literary satisfaction define my legacy."
+            "As the founder of <b>Novelistic World</b>, I am dedicated to providing a premium sanctuary for Urdu literature. My platform is built on trust, quality, and an unwavering passion for storytelling. Welcome to my legacy."
         </p>
     </div>
 
-    <div class="grid-title"><i class="fas fa-book-open"></i> Premium Collection</div>
-    
     <main class="novel-grid" id="novelGrid">
-        </main>
+        <p style="grid-column: span 2; text-align:center; padding:50px;">Connecting to Database...</p>
+    </main>
 
     <footer>
-        <p>NOVELISTIC WORLD | AUTHORED BY MIRROR HASSAN</p>
-        <p>© 2026 OFFICIAL PREMIUM NETWORK</p>
+        <p>NOVELISTIC WORLD | POWERED BY MIRROR HASSAN OFFICIAL</p>
+        <p>© 2026 THE ELITE READING NETWORK</p>
     </footer>
 
     <script>
         const ID = '1QAa2IooWSDSCDBKN6CmhTIYVRnKtSfFt54pm70QWyIQ';
         const URL = `https://docs.google.com/spreadsheets/d/${ID}/gviz/tq?tqx=out:json`;
 
-        let allNovels = [];
+        let novels = [];
 
-        async function fetchNovels() {
+        async function init() {
             try {
-                const r = await fetch(URL);
-                const t = await r.text();
-                const d = JSON.parse(t.substring(47).slice(0, -2));
-                allNovels = d.table.rows.slice(1); // Skip header row
-                displayNovels(allNovels);
-            } catch (e) {
-                console.error("Data error");
-            }
+                const res = await fetch(URL);
+                const text = await res.text();
+                const json = JSON.parse(text.substring(47).slice(0, -2));
+                novels = json.table.rows.slice(1);
+                render(novels);
+            } catch (e) { console.error("Error loading novels."); }
         }
 
-        function displayNovels(rows) {
+        function render(data) {
             const grid = document.getElementById('novelGrid');
             grid.innerHTML = "";
-            
-            rows.forEach(row => {
-                const name = row.c[0] ? row.c[0].v : "Urdu Novel";
+            data.forEach(row => {
+                const n = row.c[0] ? row.c[0].v : "Urdu Novel";
                 const img = row.c[1] ? row.c[1].v : "https://via.placeholder.com/300";
                 const link = row.c[2] ? row.c[2].v : "#";
-
                 grid.innerHTML += `
                     <div class="card">
-                        <img src="${img}" alt="Cover">
+                        <img src="${img}">
                         <div class="card-info">
-                            <h4>${name}</h4>
+                            <h4>${n}</h4>
                             <a href="${link}" class="dl-btn" target="_blank">Download PDF</a>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
         function filterNovels() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allNovels.filter(row => {
-                const name = row.c[0] ? row.c[0].v.toLowerCase() : "";
-                return name.includes(query);
-            });
-            displayNovels(filtered);
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const f = novels.filter(r => (r.c[0] ? r.c[0].v.toLowerCase() : "").includes(q));
+            render(f);
         }
 
-        window.onload = fetchNovels;
+        function closePopup() {
+            document.getElementById('entryModal').style.display = 'none';
+        }
+
+        window.onload = init;
     </script>
 </body>
 </html>
