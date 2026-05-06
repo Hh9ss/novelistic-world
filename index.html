@@ -5,35 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Novelistic World | Mirror Hassan Official</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root { --primary: #05070a; --secondary: #11141d; --gold: #ffcc00; --white: #ffffff; }
+        :root { --bg: #05070a; --card: #11141d; --gold: #ffcc00; --white: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--primary); color: var(--white); }
+        body { background-color: var(--bg); color: var(--white); }
 
-        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(5, 7, 10, 0.95); backdrop-filter: blur(10px); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .navbar .logo { font-family: 'Montserrat'; font-weight: 900; font-size: 20px; color: var(--white); text-decoration: none; text-transform: uppercase; }
-        .navbar .logo span { color: var(--gold); }
+        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(5, 7, 10, 0.98); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,215,0,0.2); }
+        .logo { font-family: 'Montserrat'; font-size: 20px; text-decoration: none; color: white; text-transform: uppercase; }
+        .logo span { color: var(--gold); }
 
-        .owner-header { padding: 40px 20px; text-align: center; background: #000; border-bottom: 2px solid var(--gold); margin-bottom: 30px; }
-        .bio-card { border-left: 4px solid var(--gold); padding: 15px; background: #111; max-width: 600px; margin: auto; text-align: left; }
+        .owner-section { padding: 30px 20px; text-align: center; background: #000; border-bottom: 2px solid var(--gold); }
+        .bio-box { border-left: 4px solid var(--gold); padding: 15px; background: #0a0a0a; max-width: 500px; margin: auto; text-align: left; }
 
-        .library-title { padding: 0 20px 20px; font-family: 'Montserrat'; font-size: 20px; color: var(--gold); }
-        .novel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px 100px; }
-        .card { background: var(--secondary); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        .card img { width: 100%; height: 200px; object-fit: cover; }
-        .card-info { padding: 10px; text-align: center; }
-        .card-info h4 { font-size: 12px; margin-bottom: 10px; height: 35px; overflow: hidden; }
-        .dl-link { background: var(--gold); color: #000; text-decoration: none; padding: 10px; border-radius: 8px; display: block; font-size: 11px; font-weight: 800; border: none; width: 100%; cursor: pointer; }
+        .novel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; padding-bottom: 100px; }
+        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); position: relative; }
+        .card img { width: 100%; height: 210px; object-fit: cover; }
+        .info { padding: 12px; text-align: center; }
+        .info h4 { font-size: 12px; margin-bottom: 10px; height: 35px; overflow: hidden; color: #fff; }
 
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.98); display: none; justify-content: center; align-items: center; z-index: 5000; }
-        .modal-box { background: #111; padding: 30px; border-radius: 20px; border: 2px solid var(--gold); text-align: center; width: 85%; max-width: 350px; }
-        #timer-num { font-size: 50px; font-weight: 900; color: var(--gold); margin: 15px 0; display: block; }
-        .final-btn { background: #25d366; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 700; display: none; }
+        /* The New Direct Button */
+        .action-btn { 
+            background: var(--gold); color: #000; border: none; padding: 12px; 
+            width: 100%; border-radius: 8px; font-weight: 800; cursor: pointer;
+            text-transform: uppercase; font-size: 11px; transition: 0.3s;
+            display: block; text-decoration: none;
+        }
+        .action-btn.waiting { background: #333; color: #gold; cursor: not-allowed; }
+        .action-btn.ready { background: #25d366; color: white; animation: pulse 1s infinite; }
 
-        footer { text-align: center; padding: 30px; font-size: 11px; opacity: 0.5; border-top: 1px solid #222; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        footer { text-align: center; padding: 30px; font-size: 11px; opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -43,85 +47,79 @@
         <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" style="color:#25d366;"><i class="fab fa-whatsapp" style="font-size:24px;"></i></a>
     </nav>
 
-    <div class="owner-header">
-        <div class="bio-card">
-            <h3 style="color:var(--gold); font-size:16px;">Mirror Hassan Official</h3>
-            <p style="font-size:12px; color:#aaa; margin-top:5px;">Curating the finest Urdu novels for the true literary lovers.</p>
+    <div class="owner-section">
+        <div class="bio-box">
+            <h3 style="color:var(--gold); font-size:15px;">Mirror Hassan Official</h3>
+            <p style="font-size:11px; color:#999; margin-top:5px;">Providing secure and elite access to Urdu literature. Quality is my priority.</p>
         </div>
     </div>
 
-    <div class="library-title">Recent Novels</div>
-    <main class="novel-grid" id="novelGrid"></main>
+    <main class="novel-grid" id="mainGrid">
+        <p style="grid-column: span 2; text-align:center; padding:50px;">Loading Hassan's Library...</p>
+    </main>
 
-    <div class="modal" id="dlModal">
-        <div class="modal-box">
-            <h3 style="color:var(--gold);">Generating Link...</h3>
-            <span id="timer-num">10</span>
-            <a href="#" id="final-link" class="final-btn" target="_blank">DOWNLOAD NOW</a>
-        </div>
-    </div>
-
-    <footer>Novelistic World | Created by Mirror Hassan Official</footer>
+    <footer>Novelistic World | Created by Mirror Hassan Official © 2026</footer>
 
     <script>
         const SHEET_ID = '1QAa2IooWSDSCDBKN6CmhTIYVRnKtSfFt54pm70QWyIQ';
-        const JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+        const URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
-        async function init() {
+        async function loadNovels() {
             try {
-                const res = await fetch(JSON_URL);
-                const text = await res.text();
-                const data = JSON.parse(text.substring(47).slice(0, -2));
-                const rows = data.table.rows;
-                const grid = document.getElementById('novelGrid');
+                const r = await fetch(URL);
+                const t = await r.text();
+                const d = JSON.parse(t.substring(47).slice(0, -2));
+                const rows = d.table.rows;
+                const grid = document.getElementById('mainGrid');
                 grid.innerHTML = "";
 
                 rows.forEach((row, i) => {
-                    if(i === 0) return; // Skip Header
-                    // Forcefully picking columns by index 0, 1, 2
-                    const n = row.c[0] ? row.c[0].v : "Novel";
-                    const img = row.c[1] ? row.c[1].v : "";
+                    if(i === 0) return;
+                    const name = row.c[0] ? row.c[0].v : "Novel";
+                    const img = row.c[1] ? row.c[1].v : "https://via.placeholder.com/200x300";
                     const link = row.c[2] ? row.c[2].v : "#";
+
+                    // Unique ID for each button
+                    const btnId = `btn-${i}`;
 
                     grid.innerHTML += `
                         <div class="card">
-                            <img src="${img}" onerror="this.src='https://via.placeholder.com/200x300?text=No+Image'">
-                            <div class="card-info">
-                                <h4>${n}</h4>
-                                <button class="dl-link" onclick="startDL('${link}')">GET DOWNLOAD</button>
+                            <img src="${img}" onerror="this.src='https://via.placeholder.com/200x300?text=Novel'">
+                            <div class="info">
+                                <h4>${name}</h4>
+                                <button id="${btnId}" class="action-btn" onclick="startProcess('${btnId}', '${link}')">Download PDF</button>
                             </div>
                         </div>
                     `;
                 });
-            } catch (e) {
-                console.log(e);
+            } catch (err) {
+                console.error(err);
             }
         }
 
-        function startDL(url) {
-            const modal = document.getElementById('dlModal');
-            const timer = document.getElementById('timer-num');
-            const btn = document.getElementById('final-link');
+        function startProcess(id, url) {
+            const btn = document.getElementById(id);
+            if(btn.classList.contains('waiting') || btn.classList.contains('ready')) return;
+
+            let timeLeft = 10;
+            btn.classList.add('waiting');
             
-            modal.style.display = 'flex';
-            btn.href = url;
-            btn.style.display = 'none';
-            timer.style.display = 'block';
-            timer.innerText = "10";
-            
-            let count = 10;
-            const x = setInterval(() => {
-                count--;
-                timer.innerText = count;
-                if(count <= 0) {
-                    clearInterval(x);
-                    timer.style.display = 'none';
-                    btn.style.display = 'inline-block';
+            const timer = setInterval(() => {
+                timeLeft--;
+                btn.innerText = `Wait ${timeLeft}s...`;
+                
+                if(timeLeft <= 0) {
+                    clearInterval(timer);
+                    btn.innerText = "Click to Download";
+                    btn.classList.remove('waiting');
+                    btn.classList.add('ready');
+                    // Change click to open link
+                    btn.onclick = () => { window.location.href = url; };
                 }
             }, 1000);
         }
 
-        window.onload = init;
+        window.onload = loadNovels;
     </script>
 </body>
 </html>
