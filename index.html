@@ -2,102 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Novelistic World | Mirror Hassan Official</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novelistic World | Mirror Hassan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #11141d; --gold: #ffcc00; --white: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg); color: var(--white); }
-
-        .navbar { position: sticky; top: 0; z-index: 1000; background: #000; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); }
-        .logo { font-family: 'Montserrat'; font-size: 18px; text-decoration: none; color: white; text-transform: uppercase; letter-spacing: 1px; }
-        .logo span { color: var(--gold); }
-
-        .owner-header { padding: 30px 20px; text-align: center; background: #080808; margin-bottom: 20px; }
-        .bio-box { border-left: 3px solid var(--gold); padding: 12px; background: #000; max-width: 500px; margin: auto; text-align: left; }
-
-        .novel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; padding-bottom: 80px; }
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        .card img { width: 100%; height: 190px; object-fit: cover; }
-        .info { padding: 10px; text-align: center; }
-        .info h4 { font-size: 11px; margin-bottom: 10px; height: 32px; overflow: hidden; color: #eee; }
-
-        /* Direct Reliable Link Button */
-        .dl-button { 
-            display: block;
-            background: var(--gold); 
-            color: #000; 
-            padding: 10px; 
-            border-radius: 6px; 
-            font-weight: 800; 
-            text-decoration: none;
-            text-transform: uppercase; 
-            font-size: 10px;
-            transition: 0.2s;
-        }
-        .dl-button:active { transform: scale(0.95); background: #e6b800; }
-
-        footer { text-align: center; padding: 30px; font-size: 10px; opacity: 0.3; border-top: 1px solid #111; }
+        body { background: #05070a; color: white; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
+        .nav { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid #ffcc00; font-weight: bold; font-size: 20px; color: #ffcc00; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .card { background: #11141d; border-radius: 10px; overflow: hidden; border: 1px solid #333; text-align: center; padding-bottom: 15px; }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card h4 { font-size: 13px; margin: 10px; height: 35px; overflow: hidden; }
+        .btn { display: inline-block; background: #ffcc00; color: #000; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 12px; }
+        footer { text-align: center; padding: 20px; font-size: 10px; opacity: 0.5; }
     </style>
 </head>
 <body>
-
-    <nav class="navbar">
-        <a href="#" class="logo">Novelistic <span>World</span></a>
-        <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" style="color:#25d366;"><i class="fab fa-whatsapp" style="font-size:24px;"></i></a>
-    </nav>
-
-    <div class="owner-header">
-        <div class="bio-box">
-            <h3 style="color:var(--gold); font-size:14px;">Mirror Hassan Official</h3>
-            <p style="font-size:10px; color:#888; margin-top:4px;">Founder of Novelistic World. Dedicated to bringing you the best Urdu literature safely.</p>
-        </div>
-    </div>
-
-    <main class="novel-grid" id="mainGrid">
-        </main>
-
-    <footer>Novelistic World | Managed by Mirror Hassan Official</footer>
+    <div class="nav">NOVELISTIC WORLD</div>
+    <div class="grid" id="list">Loading...</div>
+    <footer>Mirror Hassan Official © 2026</footer>
 
     <script>
-        const SHEET_ID = '1QAa2IooWSDSCDBKN6CmhTIYVRnKtSfFt54pm70QWyIQ';
-        const DATA_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+        const ID = '1QAa2IooWSDSCDBKN6CmhTIYVRnKtSfFt54pm70QWyIQ';
+        const URL = `https://docs.google.com/spreadsheets/d/${ID}/gviz/tq?tqx=out:json`;
 
-        async function loadNovels() {
-            try {
-                const response = await fetch(DATA_URL);
-                const text = await response.text();
-                const json = JSON.parse(text.substring(47).slice(0, -2));
-                const rows = json.table.rows;
-                const grid = document.getElementById('mainGrid');
-                grid.innerHTML = "";
-
-                rows.forEach((row, i) => {
-                    if(i === 0) return; // Skip Header
-                    const name = row.c[0] ? row.c[0].v : "Novel";
-                    const image = row.c[1] ? row.c[1].v : "https://via.placeholder.com/200x300?text=No+Image";
-                    const link = row.c[2] ? row.c[2].v : "#";
-
-                    grid.innerHTML += `
-                        <div class="card">
-                            <img src="${image}">
-                            <div class="info">
-                                <h4>${name}</h4>
-                                <a href="${link}" class="dl-button">Download Now</a>
-                            </div>
-                        </div>
-                    `;
-                });
-            } catch (err) {
-                document.getElementById('mainGrid').innerHTML = "<p style='grid-column:span 2; text-align:center;'>Database Error!</p>";
-            }
-        }
-
-        window.onload = loadNovels;
+        fetch(URL).then(r => r.text()).then(t => {
+            const data = JSON.parse(t.substr(47).slice(0, -2));
+            const rows = data.table.rows;
+            let html = '';
+            rows.forEach((row, i) => {
+                if(i===0) return;
+                const name = row.c[0] ? row.c[0].v : "Urdu Novel";
+                const img = row.c[1] ? row.c[1].v : "https://via.placeholder.com/200";
+                const link = row.c[2] ? row.c[2].v : "#";
+                html += `<div class="card"><img src="${img}"><h4>${name}</h4><a href="${link}" class="btn" target="_blank">DOWNLOAD</a></div>`;
+            });
+            document.getElementById('list').innerHTML = html;
+        }).catch(e => { document.getElementById('list').innerHTML = "Error: Please Share your Google Sheet as Public."; });
     </script>
 </body>
 </html>
