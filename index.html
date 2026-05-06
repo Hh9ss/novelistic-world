@@ -9,82 +9,59 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root { --primary: #05070a; --secondary: #11141d; --accent: #ff3131; --gold: #ffcc00; --white: #ffffff; --border: rgba(255, 255, 255, 0.1); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--primary); color: var(--white); overflow-x: hidden; }
+        :root { --primary: #05070a; --secondary: #11141d; --gold: #ffcc00; --white: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--primary); color: var(--white); }
 
-        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(5, 7, 10, 0.95); backdrop-filter: blur(10px); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-        .navbar .logo { font-family: 'Montserrat'; font-weight: 900; font-size: 20px; color: var(--white); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
+        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(5, 7, 10, 0.95); backdrop-filter: blur(10px); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .navbar .logo { font-family: 'Montserrat'; font-weight: 900; font-size: 20px; color: var(--white); text-decoration: none; text-transform: uppercase; }
         .navbar .logo span { color: var(--gold); }
 
-        .sidebar { position: fixed; top: 0; left: -100%; width: 280px; height: 100%; background: var(--secondary); z-index: 2000; transition: 0.4s; padding: 40px 20px; border-right: 1px solid var(--gold); }
-        .sidebar.active { left: 0; }
-        .nav-btn { display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-radius: 12px; color: #ccc; cursor: pointer; border: none; width: 100%; font-size: 14px; text-align: left; }
-        .nav-btn i { color: var(--gold); }
+        .owner-header { padding: 40px 20px; text-align: center; background: #000; border-bottom: 2px solid var(--gold); margin-bottom: 30px; }
+        .bio-card { border-left: 4px solid var(--gold); padding: 15px; background: #111; max-width: 600px; margin: auto; text-align: left; }
 
-        .owner-header { padding: 40px 20px; text-align: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://i.postimg.cc/x1h3m1DJ/1778071595818.png'); background-size: cover; border-bottom: 2px solid var(--gold); margin-bottom: 30px; }
-        .bio-card { background: rgba(0,0,0,0.6); padding: 20px; border-radius: 15px; border-left: 4px solid var(--gold); max-width: 600px; margin: auto; text-align: left; }
-
-        .library-title { padding: 0 20px 20px; font-family: 'Montserrat'; font-size: 22px; color: var(--gold); text-transform: uppercase; }
+        .library-title { padding: 0 20px 20px; font-family: 'Montserrat'; font-size: 20px; color: var(--gold); }
         .novel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px 100px; }
-        .card { background: var(--secondary); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: 0.3s; }
-        .card img { width: 100%; height: 220px; object-fit: cover; }
-        .card-info { padding: 12px; text-align: center; }
-        .card-info h4 { font-size: 13px; height: 38px; overflow: hidden; margin-bottom: 12px; color: #fff; }
-        .dl-link { background: var(--gold); color: #000; text-decoration: none; padding: 12px; border-radius: 10px; display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; border: none; width: 100%; cursor: pointer; }
+        .card { background: var(--secondary); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-info { padding: 10px; text-align: center; }
+        .card-info h4 { font-size: 12px; margin-bottom: 10px; height: 35px; overflow: hidden; }
+        .dl-link { background: var(--gold); color: #000; text-decoration: none; padding: 10px; border-radius: 8px; display: block; font-size: 11px; font-weight: 800; border: none; width: 100%; cursor: pointer; }
 
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.98); display: none; justify-content: center; align-items: center; z-index: 5000; }
-        .modal-box { background: #111; padding: 40px; border-radius: 25px; border: 2px solid var(--gold); text-align: center; width: 85%; max-width: 350px; }
-        #timer-num { font-size: 65px; font-weight: 900; color: var(--gold); display: block; margin: 20px 0; }
-        .final-btn { background: #25d366; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 700; display: none; text-transform: uppercase; }
+        .modal-box { background: #111; padding: 30px; border-radius: 20px; border: 2px solid var(--gold); text-align: center; width: 85%; max-width: 350px; }
+        #timer-num { font-size: 50px; font-weight: 900; color: var(--gold); margin: 15px 0; display: block; }
+        .final-btn { background: #25d366; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 700; display: none; }
 
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1500; display: none; backdrop-filter: blur(5px); }
-        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); font-size: 12px; color: #555; }
+        footer { text-align: center; padding: 30px; font-size: 11px; opacity: 0.5; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
     <nav class="navbar">
-        <div style="display:flex; align-items:center; gap:12px;">
-            <i class="fas fa-bars-staggered" style="font-size: 22px; cursor: pointer; color: var(--gold);" onclick="openSidebar()"></i>
-            <a href="#" class="logo">Novelistic <span>World</span></a>
-        </div>
-        <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" style="color:#25d366;"><i class="fab fa-whatsapp" style="font-size:26px;"></i></a>
+        <a href="#" class="logo">Novelistic <span>World</span></a>
+        <a href="https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R" style="color:#25d366;"><i class="fab fa-whatsapp" style="font-size:24px;"></i></a>
     </nav>
-
-    <div class="sidebar" id="sidebar">
-        <div style="color:var(--gold); font-weight:900; margin-bottom:30px; text-align:center;">MENU</div>
-        <button class="nav-btn" onclick="location.reload()"><i class="fas fa-home"></i> Home Library</button>
-        <button class="nav-btn" onclick="window.open('https://whatsapp.com/channel/0029VbBzB5PEgGfKFrhqXK2R')"><i class="fab fa-whatsapp"></i> Join WhatsApp</button>
-        <p style="font-size:10px; color:#444; margin-top:50px; text-align:center;">Managed by Mirror Hassan</p>
-    </div>
 
     <div class="owner-header">
         <div class="bio-card">
-            <h3 style="color:var(--gold); margin-bottom:10px;">The Visionary Founder</h3>
-            <p style="font-size:13px; color:#bbb; line-height:1.6; font-style:italic;">"I am Mirror Hassan, the architect of Novelistic World. My goal is to provide a premium and secure experience for every novel lover."</p>
+            <h3 style="color:var(--gold); font-size:16px;">Mirror Hassan Official</h3>
+            <p style="font-size:12px; color:#aaa; margin-top:5px;">Curating the finest Urdu novels for the true literary lovers.</p>
         </div>
     </div>
 
-    <div class="library-title">Library Collection</div>
-    <main class="novel-grid" id="novelGrid">
-        <p style="grid-column: span 2; text-align:center; padding:50px; opacity:0.5;">Accessing Hassan's Database...</p>
-    </main>
+    <div class="library-title">Recent Novels</div>
+    <main class="novel-grid" id="novelGrid"></main>
 
     <div class="modal" id="dlModal">
         <div class="modal-box">
-            <h3 style="color:var(--gold);">Securing Download Link</h3>
-            <span id="timer-num">15</span>
-            <a href="#" id="final-link" class="final-btn" target="_blank">Download From MediaFire</a>
+            <h3 style="color:var(--gold);">Generating Link...</h3>
+            <span id="timer-num">10</span>
+            <a href="#" id="final-link" class="final-btn" target="_blank">DOWNLOAD NOW</a>
         </div>
     </div>
 
-    <footer>
-        <p>Novelistic World | Created by Mirror Hassan Official</p>
-        <p>© 2026 Lifetime Database Protected</p>
-    </footer>
+    <footer>Novelistic World | Created by Mirror Hassan Official</footer>
 
     <script>
         const SHEET_ID = '1QAa2IooWSDSCDBKN6CmhTIYVRnKtSfFt54pm70QWyIQ';
@@ -94,33 +71,34 @@
             try {
                 const res = await fetch(JSON_URL);
                 const text = await res.text();
-                const data = JSON.parse(text.substr(47).slice(0, -2));
+                const data = JSON.parse(text.substring(47).slice(0, -2));
                 const rows = data.table.rows;
                 const grid = document.getElementById('novelGrid');
                 grid.innerHTML = "";
 
                 rows.forEach((row, i) => {
                     if(i === 0) return; // Skip Header
-                    const n = row.c[0] ? row.c[0].v : "Urdu Novel";
-                    const img = row.c[1] ? row.c[1].v : "https://via.placeholder.com/300";
+                    // Forcefully picking columns by index 0, 1, 2
+                    const n = row.c[0] ? row.c[0].v : "Novel";
+                    const img = row.c[1] ? row.c[1].v : "";
                     const link = row.c[2] ? row.c[2].v : "#";
 
                     grid.innerHTML += `
                         <div class="card">
-                            <img src="${img}" alt="Cover">
+                            <img src="${img}" onerror="this.src='https://via.placeholder.com/200x300?text=No+Image'">
                             <div class="card-info">
                                 <h4>${n}</h4>
-                                <button class="dl-link" onclick="triggerDL('${link}')">DOWNLOAD PDF</button>
+                                <button class="dl-link" onclick="startDL('${link}')">GET DOWNLOAD</button>
                             </div>
                         </div>
                     `;
                 });
             } catch (e) {
-                document.getElementById('novelGrid').innerHTML = "<p style='grid-column: span 2; text-align:center;'>Database Connection Error!</p>";
+                console.log(e);
             }
         }
 
-        function triggerDL(url) {
+        function startDL(url) {
             const modal = document.getElementById('dlModal');
             const timer = document.getElementById('timer-num');
             const btn = document.getElementById('final-link');
@@ -129,21 +107,19 @@
             btn.href = url;
             btn.style.display = 'none';
             timer.style.display = 'block';
+            timer.innerText = "10";
             
-            let count = 15;
-            const interval = setInterval(() => {
+            let count = 10;
+            const x = setInterval(() => {
                 count--;
                 timer.innerText = count;
                 if(count <= 0) {
-                    clearInterval(interval);
+                    clearInterval(x);
                     timer.style.display = 'none';
                     btn.style.display = 'inline-block';
                 }
             }, 1000);
         }
-
-        function openSidebar() { document.getElementById('sidebar').classList.add('active'); document.getElementById('overlay').style.display = 'block'; }
-        function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); document.getElementById('overlay').style.display = 'none'; }
 
         window.onload = init;
     </script>
